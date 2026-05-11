@@ -1,0 +1,780 @@
+BANCO ===========================================
+CREATE DATABASE sistema_login;
+USE sistema_login;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);
+
+cadastro.html =======================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Cadastro</h1></header>
+
+<nav class="navbar">
+  <a href="login.html">Login</a>
+</nav>
+
+<main>
+  <h2>Criar Conta</h2>
+  <form class="formulario" action="cadastro.php" method="POST">
+      <input type="text" name="usuario" placeholder="Usuário" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Cadastrar</button>
+  </form>
+</main>
+
+<footer>© 2025 SafeBelt</footer>
+
+</body>
+</html>
+
+
+cadastro.php ================================================
+<?php
+include "conexao.php";
+
+$usuario = $_POST['usuario'];
+$senha = md5($_POST['senha']);
+
+$sql = "INSERT INTO usuarios (usuario, senha) VALUES (?, ?)";
+$stmt = $conexao->prepare($sql);
+$stmt->bind_param("ss", $usuario, $senha);
+
+if ($stmt->execute()) {
+    header("Location: login.html");
+    exit();
+} else {
+
+    if ($stmt->errno == 1062) {
+        echo "Usuário já existe! Escolha outro nome.";
+    } else {
+        echo "Erro ao cadastrar: " . $stmt->error;
+    }
+}
+?>
+
+conexão.php ===========================================
+<?php
+$host = "localhost";
+$user = "root"; 
+$pass = ""; 
+$db = "sistema_login";
+
+$conexao = new mysqli($host, $user, $pass, $db);
+
+if ($conexao->connect_error) {
+    die("Falha na conexão: " . $conexao->connect_error);
+}
+?>
+
+contato.html ===============================================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - SafeBelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header><h1>📞 Contato</h1></header>
+
+<nav class="navbar">
+  <a href="inicio.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="funcionamento.html">Funcionamento</a>
+  <a href="equipe.html">Equipe</a>
+  <a href="contato.html">Contato</a>
+</nav>
+
+
+  <main>
+    <p>Entre em contato conosco para saber mais sobre o projeto SafeBelt:</p>
+
+    <ul>
+      <li>Email: <a href="mailto:safebelt@gmail.com">safebelt@gmail.com</a></li>
+      <li>Instagram: <a href="#">@safebelt.oficial</a></li>
+      <li>Telefone: (19) 99999-9999</li>
+    </ul>
+
+    <a href="index.html" class="voltar">⬅ Voltar</a>
+  </main>
+
+  <footer>© 2025 SafeBelt</footer>
+</body>
+</html>
+
+equipe.html ================================================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipe - SafeBelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header><h1>👥 Equipe SafeBelt</h1></header>
+
+<nav class="navbar">
+  <a href="inicio.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="funcionamento.html">Funcionamento</a>
+  <a href="equipe.html">Equipe</a>
+  <a href="contato.html">Contato</a>
+</nav>
+
+
+  <main>
+    <p>
+      O projeto SafeBelt foi desenvolvido por estudantes do curso técnico em Informática, com foco em
+      soluções tecnológicas voltadas à saúde emocional no ambiente escolar.
+    </p>
+
+    <ul>
+      <li><strong>Desenvolvimento de Software:</strong> João</li>
+      <li><strong>Design e Interface:</strong> [Integrante]</li>
+      <li><strong>Pesquisa e Documentação:</strong> [Integrante]</li>
+    </ul>
+
+    <a href="index.html" class="voltar">⬅ Voltar</a>
+  </main>
+
+  <footer>© 2025 SafeBelt</footer>
+</body>
+</html>
+
+funcionamento.html ==========================================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funcionamento - SafeBelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header><h1>⚙️ Como Funciona o SafeBelt</h1></header>
+
+<nav class="navbar">
+  <a href="inicio.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="funcionamento.html">Funcionamento</a>
+  <a href="equipe.html">Equipe</a>
+  <a href="contato.html">Contato</a>
+</nav>
+
+
+  <main>
+    <p>
+      A pulseira SafeBelt utiliza sensores de batimentos cardíacos, temperatura corporal, saturação de oxigênio e movimento.
+      Esses dados são enviados para um sistema que analisa padrões e identifica possíveis sinais de ansiedade ou estresse.
+      Caso detecte uma possível crise, um alerta é enviado automaticamente à escola com a localização do aluno.
+    </p>
+
+    <a href="index.html" class="voltar">⬅ Voltar</a>
+  </main>
+
+  <footer>© 2025 SafeBelt</footer>
+</body>
+</html>
+
+inicio.html ===========================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeBelt - Início</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #e6f0ff, #f4f8ff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e88e5, #1565c0);
+      color: white;
+      text-align: center;
+      padding: 25px 0;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 🔹 Navbar fixa */
+    nav.navbar {
+      position: sticky;
+      top: 0;
+      background: #1565c0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 12px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    nav.navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    nav.navbar a:hover {
+      background: #1e88e5;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      background: #f4f8ff;
+      padding: 15px;
+      color: #555;
+      border-top: 1px solid #bbdefb;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .botao {
+      text-decoration: none;
+      background: #1e88e5;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .botao:hover {
+      background: #1565c0;
+      transform: translateY(-3px);
+    }
+  </style>
+
+</head>
+<body>
+
+  <header>
+    <h1>💙 SafeBelt</h1>
+    <p>Monitoramento inteligente para o bem-estar emocional de estudantes</p>
+  </header>
+
+  <nav class="navbar">
+    <a href="sobre.html">Sobre</a>
+    <a href="funcionamento.html">Funcionamento</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+  <main class="inicio">
+    <h2>Bem-vindo ao SafeBelt</h2>
+    <p>Um projeto voltado para detectar sinais de ansiedade em tempo real e oferecer mais segurança no ambiente escolar.</p>
+
+    <div class="menu">
+      <a href="sobre.html" class="botao">Sobre</a>
+      <a href="funcionamento.html" class="botao">Funcionamento</a>
+      <a href="equipe.html" class="botao">Equipe</a>
+      <a href="contato.html" class="botao">Contato</a>
+    </div>
+  </main>
+
+  <footer>© 2025 SafeBelt - Todos os direitos reservados</footer>
+
+</body>
+</html>
+
+
+login.html ========================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Login</h1></header>
+
+<nav class="navbar">
+  <a href="cadastro.html">Cadastro</a>
+</nav>
+
+<main>
+  <h2>Entrar</h2>
+  <form class="formulario" action="login.php" method="POST">
+      <input type="text" name="usuario" placeholder="Usuário" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+  </form>
+</main>
+
+<footer>© 2025 SafeBelt</footer>
+
+</body>
+</html>
+
+
+login.php ==============================================================
+<?php
+include "conexao.php";
+
+$usuario = $_POST['usuario'];
+$senha = md5($_POST['senha']);
+
+$sql = "SELECT * FROM usuarios WHERE usuario = ?";
+$stmt = $conexao->prepare($sql);
+$stmt->bind_param("s", $usuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 1) {
+    
+    $dados = $result->fetch_assoc();
+
+    if ($dados['senha'] === $senha) {
+        header("Location: inicio.html");
+        exit();
+    } else {
+        echo "Senha incorreta!";
+    }
+
+} else {
+    echo "Usuário não encontrado!";
+}
+?>
+
+sobre.html =======================================================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre - SafeBelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header><h1>💙 Sobre o SafeBelt</h1></header>
+
+  <nav class="navbar">
+    <a href="inicio.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="funcionamento.html">Funcionamento</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>O que é o SafeBelt?</h2>
+      <p>
+        O <strong>SafeBelt</strong> é uma pulseira inteligente capaz de monitorar sinais fisiológicos
+        relacionados ao estresse e à ansiedade em estudantes, fornecendo dados em tempo real para a equipe escolar.
+        O objetivo é promover uma intervenção rápida e garantir um ambiente mais seguro e acolhedor.
+      </p>
+    </section>
+
+    <section>
+      <h2>Problema</h2>
+      <p>
+        Muitos alunos sofrem crises de ansiedade durante o período escolar sem que os responsáveis
+        ou professores percebam. Isso pode afetar o rendimento, a socialização e até gerar riscos à saúde física e emocional.
+      </p>
+    </section>
+
+    <section>
+      <h2>Público-Alvo</h2>
+      <p>
+        O projeto é voltado a escolas de ensino fundamental e médio, com foco em estudantes
+        que apresentam sintomas de ansiedade, e também em profissionais da educação
+        interessados em promover o cuidado emocional em sala de aula.
+      </p>
+      <a href="index.html" class="voltar">⬅ Voltar</a>
+
+    </section>
+  </main>
+
+  <footer>© 2025 SafeBelt</footer>
+</body>
+</html>
+
+
+style.css =================================================
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #e6f0ff, #f4f8ff);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(90deg, #1e88e5, #1565c0);
+  color: white;
+  text-align: center;
+  padding: 25px 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Navbar fixa */
+nav.navbar {
+  position: sticky;
+  top: 0;
+  background: #1565c0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+nav.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+nav.navbar a:hover {
+  background: #1e88e5;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  text-align: center;
+  background: #f4f8ff;
+  padding: 15px;
+  color: #555;
+  border-top: 1px solid #bbdefb;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.botao {
+  text-decoration: none;
+  background: #1e88e5;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.botao:hover {
+  background: #1565c0;
+  transform: translateY(-3px);
+}
+
+.voltar {
+  display: inline-block;
+  margin-top: 20px;
+  color: #1565c0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formulario input, .formulario button {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.formulario button {
+  background: #1e88e5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.formulario button:hover {
+  background: #1565c0;
+}
+
+monitoramento.html =========================================
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeBelt - Monitoramento de crise de ansiedade</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e6f0ff, #f4f8ff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e88e5, #1565c0);
+      color: white;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 1.8em;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      max-width: 950px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .alerta {
+      background: #ffe0e0;
+      color: #c62828;
+      border: 1px solid #c62828;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: none;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.1em;
+      box-shadow: 0 3px 8px rgba(198, 40, 40, 0.2);
+    }
+
+    .dados {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .sensor {
+      background: #f0f6ff;
+      border: 2px solid #bbdefb;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .sensor:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 16px rgba(21, 101, 192, 0.25);
+      background: #e3f2fd;
+    }
+
+    .sensor h3 {
+      margin: 0 0 10px 0;
+      color: #1565c0;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+
+    .valor {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+
+    .icon {
+      font-size: 2em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* Seção de status de crise */
+    .status-crise {
+      text-align: center;
+      margin: 40px 0 20px;
+      padding: 25px;
+      border-radius: 14px;
+      background: #e3f2fd;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.5s, color 0.5s, box-shadow 0.5s;
+    }
+
+    .status-crise h2 {
+      border: none;
+      margin-bottom: 10px;
+      color: #1565c0;
+    }
+
+    .status-texto {
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+
+    .status-normal {
+      background: #e3f8e5;
+      color: #1b8a3d;
+      box-shadow: 0 0 10px rgba(27, 138, 61, 0.2);
+    }
+
+    .status-alerta {
+      background: #ffebee;
+      color: #c62828;
+      box-shadow: 0 0 15px rgba(198, 40, 40, 0.3);
+      animation: pulsar 1.2s infinite;
+    }
+
+    @keyframes pulsar {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+      font-size: 0.9em;
+      background: #f4f8ff;
+      border-top: 1px solid #bbdefb;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>💙 SafeBelt - Monitoramento de crise de ansiedade</header>
+
+  <main>
+    <div id="alerta" class="alerta">⚠️ Possível crise detectada! Monitorando sinais vitais...</div>
+
+    <div class="dados">
+      <div class="sensor">
+        <span class="icon">❤️</span>
+        <h3>Batimento Cardíaco</h3>
+        <div id="batimento" class="valor">-- bpm</div>
+      </div>
+
+      <div class="sensor">
+        <span class="icon">🌀</span>
+        <h3>Giroscópio</h3>
+        <div id="giroscopio" class="valor">X: -- | Y: -- | Z: --</div>
+      </div>
+
+      <div class="sensor">
+        <span class="icon">📈</span>
+        <h3>Acelerômetro</h3>
+        <div id="acelerometro" class="valor">X: -- | Y: -- | Z: --</div>
+      </div>
+
+      <div class="sensor">
+        <span class="icon">📍</span>
+        <h3>GPS</h3>
+        <div id="gps" class="valor">Lat: -- | Lon: --</div>
+      </div>
+    </div>
+
+    <section id="status-crise" class="status-crise status-normal">
+      <h2>🧠 Status Emocional Atual</h2>
+      <div id="status-texto" class="status-texto">Estudante estável</div>
+    </section>
+  </main>
+
+  <footer>© 2025 SafeBelt - Projeto de Monitoramento de Ansiedade</footer>
+
+  <script>
+    async function atualizarDados() {
+      try {
+        const resposta = await fetch("dados.php");
+        const dados = await resposta.json();
+
+        if (!dados || dados.erro) return;
+
+        document.getElementById("batimento").textContent = `${dados.batimento} bpm`;
+        document.getElementById("giroscopio").textContent = `X: ${dados.giro_x} | Y: ${dados.giro_y} | Z: ${dados.giro_z}`;
+        document.getElementById("acelerometro").textContent = `X: ${dados.acel_x} | Y: ${dados.acel_y} | Z: ${dados.acel_z}`;
+        document.getElementById("gps").textContent = `Lat: ${dados.latitude} | Lon: ${dados.longitude}`;
+
+        const alerta = document.getElementById("alerta");
+        const status = document.getElementById("status-crise");
+        const statusTexto = document.getElementById("status-texto");
+
+        if (dados.batimento > 110) {
+          alerta.style.display = "block";
+          status.className = "status-crise status-alerta";
+          statusTexto.textContent = "⚠️ Sinais de possível crise detectados!";
+        } else {
+          alerta.style.display = "none";
+          status.className = "status-crise status-normal";
+          statusTexto.textContent = "💙 Estudante estável";
+        }
+
+      } catch (e) {
+        console.error("Erro ao buscar dados:", e);
+      }
+    }
+
+    atualizarDados();
+    setInterval(atualizarDados, 5000);
+  </script>
+
+</body>
+</html>
+

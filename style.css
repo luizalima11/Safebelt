@@ -1,0 +1,114 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #e6f0ff, #f4f8ff);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(90deg, #1e88e5, #1565c0);
+  color: white;
+  text-align: center;
+  padding: 25px 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Navbar fixa */
+nav.navbar {
+  position: sticky;
+  top: 0;
+  background: #1565c0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+nav.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+nav.navbar a:hover {
+  background: #1e88e5;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  text-align: center;
+  background: #f4f8ff;
+  padding: 15px;
+  color: #555;
+  border-top: 1px solid #bbdefb;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.botao {
+  text-decoration: none;
+  background: #1e88e5;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.botao:hover {
+  background: #1565c0;
+  transform: translateY(-3px);
+}
+
+.voltar {
+  display: inline-block;
+  margin-top: 20px;
+  color: #1565c0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formulario input, .formulario button {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.formulario button {
+  background: #1e88e5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.formulario button:hover {
+  background: #1565c0;
+}

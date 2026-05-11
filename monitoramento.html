@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoramento - SafeBelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>💙 SafeBelt - Monitoramento</h1>
+  </header>
+
+  <!-- 🔹 Navbar igual às outras páginas -->
+  <nav class="navbar">
+    <a href="inicio.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="funcionamento.html">Funcionamento</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="contato.html">Contato</a>
+    <a href="monitoramento.html">Monitoramento</a>
+  </nav>
+
+  <main>
+    <h2 style="text-align:center; margin-bottom:20px;">Monitoramento em Tempo Real</h2>
+
+    <!-- 🔴 Alerta de Crise -->
+    <div id="alerta" class="alerta">🚨 CRISE DETECTADA! Notificação enviada à escola.</div>
+
+    <!-- 🩺 Dados dos Sensores -->
+    <div class="dados">
+      <div class="sensor">
+        <h3>Batimentos Cardíacos (BPM)</h3>
+        <div id="bpm" class="valor">--</div>
+      </div>
+
+      <div class="sensor">
+        <h3>Temperatura Corporal (°C)</h3>
+        <div id="temperatura" class="valor">--</div>
+      </div>
+
+      <div class="sensor">
+        <h3>Saturação de Oxigênio (%)</h3>
+        <div id="spo2" class="valor">--</div>
+      </div>
+
+      <div class="sensor">
+        <h3>Nível de Movimento</h3>
+        <div id="movimento" class="valor">--</div>
+      </div>
+    </div>
+
+    <!-- 🟢 Status Geral -->
+    <div id="status" class="status-crise status-normal">
+      <h2>Status do Aluno</h2>
+      <p id="status-texto" class="status-texto">Normal</p>
+    </div>
+  </main>
+
+  <footer>© 2025 SafeBelt</footer>
+
+  <script>
+    function atualizarMonitoramento() {
+      let bpm = Math.floor(Math.random() * (130 - 60 + 1)) + 60;
+      let temperatura = (Math.random() * (38.5 - 36) + 36).toFixed(1);
+      let spo2 = Math.floor(Math.random() * (100 - 92 + 1)) + 92;
+      let movimento = Math.floor(Math.random() * 10);
+
+      document.getElementById("bpm").innerHTML = bpm;
+      document.getElementById("temperatura").innerHTML = temperatura;
+      document.getElementById("spo2").innerHTML = spo2 + "%";
+      document.getElementById("movimento").innerHTML = movimento;
+
+      let statusDiv = document.getElementById("status");
+      let statusTexto = document.getElementById("status-texto");
+      let alerta = document.getElementById("alerta");
+
+      if (bpm > 110 || temperatura > 37.8 || spo2 < 94 || movimento > 7) {
+        statusDiv.className = "status-crise status-alerta";
+        statusTexto.innerHTML = "⚠ Possível Crise Detectada";
+        alerta.style.display = "block";
+      } else {
+        statusDiv.className = "status-crise status-normal";
+        statusTexto.innerHTML = "Normal";
+        alerta.style.display = "none";
+      }
+    }
+
+    setInterval(atualizarMonitoramento, 2000);
+  </script>
+
+</body>
+</html>
